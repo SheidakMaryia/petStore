@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 @Component
 public class UserDaoImpl implements UserDao{
@@ -51,4 +50,8 @@ public class UserDaoImpl implements UserDao{
         return userList.stream().anyMatch(x -> x.getId() == id);
     }
 
+    @Override
+    public List<User> getAllUsers() {
+        return userList;
+    }
 }

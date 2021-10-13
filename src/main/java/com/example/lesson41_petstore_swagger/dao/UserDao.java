@@ -19,4 +19,6 @@ public interface UserDao {
 
     boolean isExistById(long id);
 
+    List<User> getAllUsers();
+
 }

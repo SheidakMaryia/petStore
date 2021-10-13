@@ -55,4 +55,8 @@ public class UserService {
             return true;
         }
     }
+
+    public List<User> getAllUsers(){
+        return userDao.getAllUsers();
+    }
 }

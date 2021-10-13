@@ -1,5 +1,6 @@
 package com.example.lesson41_petstore_swagger.controller;
 
+import ch.qos.logback.core.joran.conditional.IfAction;
 import com.example.lesson41_petstore_swagger.entity.User;
 import com.example.lesson41_petstore_swagger.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,13 +34,23 @@ public class UserController {
             userService.addListOfUsers(users);
             return new ResponseEntity<>(HttpStatus.OK);
         }
-
     }
 
     @GetMapping("/{username}")
     public ResponseEntity<User> findByUsername(@PathVariable String  username){
         return userService.findUserByUsername(username);
     }
+
+    @GetMapping("/findAll")
+    public ResponseEntity<List<User>> findAllUsers(){
+        List<User> allUsers = userService.getAllUsers();
+        if (allUsers.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }else {
+            return ResponseEntity.ok(allUsers);
+        }
+    }
+
 
     @PutMapping("/update")
     public ResponseEntity<User> update(@Valid @RequestBody User user){
@@ -50,7 +61,7 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("{/id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<User> delete(@PathVariable long id){
         if (userService.deleteUserById(id)){
             return new ResponseEntity<>(HttpStatus.OK);
