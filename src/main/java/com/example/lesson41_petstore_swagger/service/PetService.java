@@ -52,6 +52,10 @@ public class PetService {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
+    public List<Pet> getAll(){
+        return petDao.getAll();
+    }
+
     public boolean deleteById(long id) {
         if (petDao.isExistById(id)){
             petDao.deleteById(id);

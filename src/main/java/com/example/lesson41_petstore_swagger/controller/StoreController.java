@@ -8,12 +8,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/store")
 public class StoreController {
 
     @Autowired
-    private StoreService storeService;
+    private final StoreService storeService;
 
     public StoreController(StoreService storeService) {
         this.storeService = storeService;
@@ -27,6 +29,16 @@ public class StoreController {
     @GetMapping("/order/{id}")
     public ResponseEntity<Order> findOrderById(@PathVariable long id){
         return storeService.findOrderById(id);
+    }
+
+    @GetMapping("/getAllOrders")
+    public ResponseEntity<List<Order>> getAllOrders(){
+        List<Order> orders = storeService.getAllOrders();
+        if (orders.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }else {
+            return ResponseEntity.ok(orders);
+        }
     }
 
     @DeleteMapping("/order/{id}")

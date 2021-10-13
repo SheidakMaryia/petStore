@@ -21,4 +21,6 @@ public interface PetDao {
     boolean isExist(Pet pet);
 
     boolean isExistById(long id);
+
+    List<Pet> getAll();
 }

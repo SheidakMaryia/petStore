@@ -1,11 +1,12 @@
 package com.example.lesson41_petstore_swagger.dao;
 
 import com.example.lesson41_petstore_swagger.entity.Order;
-import com.example.lesson41_petstore_swagger.entity.User;
+
+import java.util.List;
 
 public interface StoreDao {
 
-    void order(Order order);
+    void addOrder(Order order);
 
     Order findOrderById(long id);
 
@@ -14,4 +15,6 @@ public interface StoreDao {
     boolean isExist(Order order);
 
     boolean isExistById(long id);
+
+    List<Order> getAllOrders();
 }

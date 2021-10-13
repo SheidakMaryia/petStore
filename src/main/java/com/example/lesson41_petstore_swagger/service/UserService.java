@@ -40,19 +40,19 @@ public class UserService {
 
     public boolean updateUser(User user){
         if (userDao.isExist(user)){
-            return false;
-        }else{
             userDao.update(user);
             return true;
+        }else{
+            return false;
         }
     }
 
     public boolean deleteUserById(long id){
         if (userDao.isExistById(id)){
-            return false;
-        }else{
             userDao.deleteUserById(id);
             return true;
+        }else{
+            return false;
         }
     }
 

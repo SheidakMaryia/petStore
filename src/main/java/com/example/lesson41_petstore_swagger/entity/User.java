@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
 public class User {
     private long id;
 
@@ -49,4 +49,16 @@ public class User {
 
     private int userStatus;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

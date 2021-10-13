@@ -8,23 +8,34 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.List;
+import java.util.Objects;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
 public class Pet {
     private long id;
 
-    @NotBlank
-    @NotEmpty
-    @NotNull
     private Category category;
 
     @NotBlank
     @NotEmpty
     @NotNull
     private String name;
-    private Tag tag;
+    private List<Tag> tag;
     private StatusPet status;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pet pet = (Pet) o;
+        return id == pet.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

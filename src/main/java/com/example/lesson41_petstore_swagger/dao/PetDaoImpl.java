@@ -48,4 +48,9 @@ public class PetDaoImpl implements PetDao{
     public boolean isExistById(long id) {
         return petList.stream().anyMatch(x -> x.getId() == id);
     }
+
+    @Override
+    public List<Pet> getAll() {
+        return petList;
+    }
 }

@@ -16,7 +16,7 @@ import java.util.List;
 public class PetController {
 
     @Autowired
-    private PetService petService;
+    private final PetService petService;
 
     public PetController(PetService petService) {
         this.petService = petService;
@@ -49,6 +49,16 @@ public class PetController {
     @GetMapping("/{id}")
     private ResponseEntity<Pet> findPetById(@PathVariable long id){
         return petService.findById(id);
+    }
+
+    @GetMapping("/getAll")
+    private ResponseEntity<List<Pet>> getAllPets(){
+        List<Pet> allPets = petService.getAll();
+        if (allPets.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }else {
+            return ResponseEntity.ok(allPets);
+        }
     }
 
     @DeleteMapping("/{id}")

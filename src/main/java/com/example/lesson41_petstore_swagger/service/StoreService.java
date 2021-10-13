@@ -2,10 +2,11 @@ package com.example.lesson41_petstore_swagger.service;
 
 import com.example.lesson41_petstore_swagger.dao.StoreDao;
 import com.example.lesson41_petstore_swagger.entity.Order;
-import com.example.lesson41_petstore_swagger.entity.Pet;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class StoreService {
@@ -17,7 +18,7 @@ public class StoreService {
     }
 
     public void createNewOrder(Order order){
-        storeDao.order(order);
+        storeDao.addOrder(order);
     }
 
 
@@ -27,6 +28,10 @@ public class StoreService {
             return ResponseEntity.ok(orderById);
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+
+    public List<Order> getAllOrders(){
+        return storeDao.getAllOrders();
     }
 
     public boolean deleteOrderById(long id){

@@ -12,7 +12,7 @@ public class StoreDaoImpl implements StoreDao{
     private final List<Order> orderList = new ArrayList<>();
 
     @Override
-    public void order(Order order) {
+    public void addOrder(Order order) {
         orderList.add(order);
     }
 
@@ -34,5 +34,10 @@ public class StoreDaoImpl implements StoreDao{
     @Override
     public boolean isExistById(long id) {
         return orderList.stream().anyMatch(x -> x.getId() == id);
+    }
+
+    @Override
+    public List<Order> getAllOrders() {
+        return orderList;
     }
 }
