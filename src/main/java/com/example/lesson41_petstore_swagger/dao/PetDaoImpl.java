@@ -24,8 +24,11 @@ public class PetDaoImpl implements PetDao{
     }
 
     @Override
-    public List<Pet> findByStatus(StatusPet statusPet) {
-        return petList.stream().filter(x -> x.getStatus().equals(statusPet)).collect(Collectors.toList());
+    public List<Pet> findByStatus(String statusPet) {
+        return petList.stream()
+                .filter(x -> x.getStatus().equals(StatusPet.valueOf(statusPet)))
+                .collect(Collectors.toList());
+
     }
 
     @Override

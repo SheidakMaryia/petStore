@@ -12,7 +12,7 @@ public interface PetDao {
 
     void update(Pet pet);
 
-    List<Pet> findByStatus(StatusPet statusPet);
+    List<Pet> findByStatus(String statusPet);
 
     Pet findById(long id);
 

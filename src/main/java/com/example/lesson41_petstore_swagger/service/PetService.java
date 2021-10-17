@@ -36,12 +36,8 @@ public class PetService {
         }
     }
 
-    public ResponseEntity<List<Pet>> findByStatus(StatusPet statusPet){
-        List<Pet> pet = petDao.findByStatus(statusPet);
-        if (pet != null){
-            return ResponseEntity.ok(pet);
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    public List<Pet> findByStatus(String statusPet){
+        return petDao.findByStatus(statusPet);
     }
 
     public ResponseEntity<Pet> findById(long id){

@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -23,7 +24,7 @@ public class PetController {
     }
 
     @PostMapping
-    public ResponseEntity<Pet> addPet(Pet pet){
+    public ResponseEntity<Pet> addPet(@Valid @RequestBody Pet pet){
         if(petService.isExist(pet)){
             return new ResponseEntity<>(HttpStatus.ALREADY_REPORTED);
         }else{
@@ -33,7 +34,7 @@ public class PetController {
     }
 
     @PutMapping
-    public ResponseEntity<Pet> update(Pet pet){
+    public ResponseEntity<Pet> update(@Valid @RequestBody Pet pet){
         if(petService.updatePet(pet)){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }else{
@@ -42,8 +43,12 @@ public class PetController {
     }
 
     @GetMapping("/findByStatus")
-    private ResponseEntity<List<Pet>> findByStatus(StatusPet statusPet){
-        return petService.findByStatus(statusPet);
+    private ResponseEntity<List<Pet>> findByStatus(String statusPet){
+        List<Pet> pet = petService.findByStatus(statusPet);
+        if (pet != null){
+            return ResponseEntity.ok(pet);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     @GetMapping("/{id}")

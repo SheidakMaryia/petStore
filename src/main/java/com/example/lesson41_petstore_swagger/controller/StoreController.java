@@ -22,7 +22,7 @@ public class StoreController {
     }
 
     @PostMapping("/order")
-    public void makeOrder(Order order){
+    public void makeOrder(@RequestBody Order order){
         storeService.createNewOrder(order);
     }
 
