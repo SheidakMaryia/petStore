@@ -3,41 +3,50 @@ package com.example.lesson41_petstore_swagger.controller;
 import com.example.lesson41_petstore_swagger.entity.Order;
 import com.example.lesson41_petstore_swagger.entity.Pet;
 import com.example.lesson41_petstore_swagger.service.StoreService;
+import com.example.lesson41_petstore_swagger.service.serviceSpringDataJPA.StoreServiceSpringDataJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/store")
 public class StoreController {
 
     @Autowired
-    private final StoreService storeService;
+    private StoreServiceSpringDataJPA storeService;
 
-    public StoreController(StoreService storeService) {
+    public StoreController(StoreServiceSpringDataJPA storeService) {
         this.storeService = storeService;
     }
 
     @PostMapping("/order")
-    public void makeOrder(@RequestBody Order order){
-        storeService.createNewOrder(order);
+    public ResponseEntity<Order> addOrder(@RequestBody Order order){
+        if (storeService.addNewOrder(order)) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.ALREADY_REPORTED);
     }
 
     @GetMapping("/order/{id}")
     public ResponseEntity<Order> findOrderById(@PathVariable long id){
-        return storeService.findOrderById(id);
+        Optional<Order> orderById = storeService.findOrderById(id);
+        if (orderById.isPresent()) {
+            return ResponseEntity.ok(orderById.get());
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     @GetMapping("/getAllOrders")
     public ResponseEntity<List<Order>> getAllOrders(){
-        List<Order> orders = storeService.getAllOrders();
-        if (orders.isEmpty()){
+        List<Order> allOrders = storeService.getAllOrders();
+        if (allOrders.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }else {
-            return ResponseEntity.ok(orders);
+            return ResponseEntity.ok(allOrders);
         }
     }
 
