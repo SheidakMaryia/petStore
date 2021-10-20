@@ -18,7 +18,7 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private long id;
 
 
@@ -26,7 +26,7 @@ public class Order {
 
     private LocalDateTime shipDate;
 
-    @Enumerated(EnumType.STRING)
+
     private StatusOrder status;
 
     private boolean complete;

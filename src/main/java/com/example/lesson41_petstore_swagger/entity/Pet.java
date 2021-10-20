@@ -18,11 +18,10 @@ public class Pet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private long id;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn()
     private Category category;
 
     @NotBlank
@@ -33,7 +32,7 @@ public class Pet {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Tag> tag;
 
-    @Enumerated(EnumType.STRING)
+
     private StatusPet status;
 
     @Override
