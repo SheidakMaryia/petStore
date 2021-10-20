@@ -1,6 +1,7 @@
 package com.example.lesson41_petstore_swagger.service.serviceSpringDataJPA;
 
 import com.example.lesson41_petstore_swagger.entity.Pet;
+import com.example.lesson41_petstore_swagger.entity.StatusPet;
 import com.example.lesson41_petstore_swagger.repository.PetRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +38,7 @@ public class PetServiceSpringDataJPA {
     }
 
     public Optional<List<Pet>> findByStatus(String statusPet){
-        return petRepository.findByStatus(statusPet);
+        return petRepository.findByStatus(StatusPet.valueOf(statusPet));
     }
 
     public Optional<Pet> findById(long id){
