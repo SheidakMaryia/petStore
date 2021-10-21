@@ -41,7 +41,7 @@ public class PetController {
     }
 
     @GetMapping("/findByStatus")
-    private ResponseEntity<List<Pet>> findByStatus(String statusPet){
+    private ResponseEntity<List<Pet>> findByStatus(@RequestBody String statusPet){ //http://localhost:8080/pet/findByStatus?statusPet=sold
         Optional<List<Pet>> byStatus = petService.findByStatus(statusPet);
         if (byStatus.isPresent()){
             return ResponseEntity.ok(byStatus.get());
